@@ -1,0 +1,5 @@
+pyTelegramBotAPI==3.6.6
+telebot==0.0.3
+requests==2.22.0
+six==1.13.0
+time==1.0.0
