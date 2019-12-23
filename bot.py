@@ -611,7 +611,7 @@ Microsoft Analysis Services (Службы анализа от Microsoft) - ча�
 				bot.send_message(mid, answer)
 
 			elif mt == 'документ':
-				doc = 'https://psv4.userapi.com/c856420/u211197109/docs/d14/1aee9b182e56/sppr.docx'
+				doc = 'https://drive.google.com/file/d/1HwWSHBLR488ijZKoUFIM6iQSP75tTfAu/view?usp=drivesdk'
 				bot.send_message(mid, doc)
 
 			else:
