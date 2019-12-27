@@ -32,6 +32,10 @@ try:
 				answer = '404'
 				bot.send_message(mid, answer)
 
+			elif mid == 996699036:
+				answer = '404'
+				bot.send_message(mid, answer)
+
 			else:
 
 				if 'привет' in mt:
