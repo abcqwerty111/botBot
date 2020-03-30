@@ -1,5 +1,6 @@
-pyTelegramBotAPI==3.6.6
+pyTelegramBotAPI==3.6.7
 telebot==0.0.3
-requests==2.22.0
-six==1.13.0
 bs4==0.0.1
+BeautifulSoup==3.2.2
+requests==2.23.0
+six==1.14.0
