@@ -43,7 +43,7 @@ def process_step(message):
 Выздоровевших: {recovered}
 Активных: {active}
 
-Информация по городам:{city}'''
+Информация по областям:{city}'''
         bot.send_message(chat_id, report, reply_markup=markup)
     else:
         bot.send_message(chat_id, 'Извините, Вы сделали что-то не так', reply_markup=markup)
