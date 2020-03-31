@@ -33,10 +33,17 @@ def process_step(message):
         recovered = recovered.replace('Выздоровевших:', '')
         recovered = recovered.replace(' ', '')
         active = str(int(confirmed) - int(deaths) - int(recovered))
-        report = f'''Confirmed: {confirmed}
-Deaths: {deaths}
-Recovered: {recovered}
-Active: {active}'''
+        city = soup.find('div', attrs = {'class': 'city_cov'}).text
+        city = city.replace('  ', ' ')
+        city = city.replace('  ', ' ')
+        city = city.replace('  ', ' ')
+        city = city.replace('  ', ' ')
+        report = f'''Подтверждённых случаев: {confirmed}
+Летальных случаев: {deaths}
+Выздоровевших: {recovered}
+Активных: {active}
+
+Информация по городам:{city}'''
         bot.send_message(chat_id, report, reply_markup=markup)
     else:
         bot.send_message(chat_id, 'Извините, Вы сделали что-то не так', reply_markup=markup)
