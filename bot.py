@@ -25,32 +25,39 @@ def process_step(message):
         soup = BeautifulSoup(html, 'html.parser')
         confirmed = soup.find('span', attrs = {'class': 'number_cov marg_med'}).text
         confirmed = confirmed.replace(' ', '')
-        deaths = soup.find('div', attrs = {'class': 'deaths_bl'}).text
-        deaths = deaths.replace('Летальных случаев:', '')
-        deaths = deaths.replace(' ', '')
-        deaths = deaths.replace('\n', '')
+        confirmed_city = soup.find('div', attrs = {'class': 'city_cov'}).text
+        confirmed_city = confirmed_city.replace(' ', '')
+        confirmed_city = confirmed_city.replace('Нур-Султан', 'Астана')
+        confirmed_city = confirmed_city.replace('–', ' – ')
+        confirmed_city = confirmed_city.replace('аяоб', 'ая об')
         recovered = soup.find('div', attrs = {'class': 'recov_bl'}).text
-        recovered = recovered.replace('Выздоровевших:', '')
         recovered = recovered.replace(' ', '')
-        for fff in soup.find_all('div', attrs = {'class': 'title_cov'}):
-        	plus = fff.find('div', attrs = {'class': 'city_cov'}).text
-        for div in soup.find_all('div', attrs = {'class': 'deaths_bl'}):
-        	minus = div.find('div', attrs = {'class': 'city_cov'}).text
-        menus = minus.replace(' ', '')
-        minus = menus.replace('\n', '')
-        deaths = deaths.replace(minus, '')
-        active = str(int(confirmed) - int(deaths) - int(recovered))
-        city = soup.find('div', attrs = {'class': 'city_cov'}).text
-        city = city.replace(' ', '')
-        city = city.replace('Нур-Султан', 'Астана')
-        city = city.replace('-', ' - ')
-        report = f'''Подтверждённых случаев: {confirmed}
-    {city}
-Летальных случаев: {deaths}
-	{menus}
-Выздоровевших: {recovered}
-	{plus}
-Активных: {active}'''
+        recovered = recovered.replace('Выздоровевших:', '')
+        for city in soup.find_all('div', attrs = {'class': 'red_line_covid_bl'}):
+        	recovered_city = city.find('div', attrs = {'class': 'city_cov'}).text
+        recovered_city = recovered_city.replace(' ', '')
+        recovered_city = recovered_city.replace('Нур-Султан', 'Астана')
+        recovered_city = recovered_city.replace('–', ' – ')
+        recovered_city = recovered_city.replace('аяоб', 'ая об')
+        deaths = soup.find('div', attrs = {'class': 'deaths_bl'}).text
+        for city in soup.find_all('div', attrs = {'class': 'deaths_bl'}):
+        	deaths_city = city.find('div', attrs = {'class': 'city_cov'}).text
+        deaths = deaths.replace(deaths_city, '')
+        deaths = deaths.replace(' ', '')
+        deaths = deaths.replace('Летальныхслучаев:', '')
+        deaths = deaths.replace('\n', '')
+        deaths_city = deaths_city.replace(' ', '')
+        deaths_city = deaths_city.replace('Нур-Султан', 'Астана')
+        deaths_city = deaths_city.replace('–', ' – ')
+        deaths_city = deaths_city.replace('аяоб', 'ая об')
+        active = str(int(confirmed) - int(recovered) - int(deaths))
+        report = f'''ПОДТВЕРЖДЁННЫХ СЛУЧАЕВ: {confirmed}
+	{confirmed_city}
+ВЫЗДОРОВЕВШИХ: {recovered}
+	{recovered_city}
+ЛЕТАЛЬНЫХ СЛУЧАЕВ: {deaths}
+	{deaths_city}
+АКТИВНЫХ: {active}'''
         bot.send_message(chat_id, report, reply_markup=markup)
     else:
         bot.send_message(chat_id, 'Извините, Вы сделали что-то не так', reply_markup=markup)
