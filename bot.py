@@ -4,7 +4,7 @@ from telebot import *
 import requests
 from bs4 import BeautifulSoup
 
-bot = telebot.TeleBot('1046005810:AAG1-tPwvEb5nwEpigoDLuk4vDhuYDULI2M')
+bot = telebot.TeleBot('844670991:AAFrcRXo8nVBEw9pSyNOceb4C9QJuNp9skc')
 
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
