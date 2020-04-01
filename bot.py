@@ -32,11 +32,11 @@ def process_step(message):
         recovered = soup.find('div', attrs = {'class': 'recov_bl'}).text
         recovered = recovered.replace('Выздоровевших:', '')
         recovered = recovered.replace(' ', '')
-	for div in soup.find_all('div', attrs = {'class': 'deaths_bl'}):
-		minus = div.find('div', attrs = {'class': 'city_cov'}).text
-	minus = minus.replace(' ', '')
-	minus = minus.replace('\n', '')
-	deaths = deaths.replace(minus, '')
+        for div in soup.find_all('div', attrs = {'class': 'deaths_bl'}):
+        	minus = div.find('div', attrs = {'class': 'city_cov'}).text
+        minus = minus.replace(' ', '')
+        minus = minus.replace('\n', '')
+        deaths = deaths.replace(minus, '')
         active = str(int(confirmed) - int(deaths) - int(recovered))
         city = soup.find('div', attrs = {'class': 'city_cov'}).text
         city = city.replace('  ', ' ')
