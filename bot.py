@@ -38,6 +38,7 @@ def process_step(message):
         city = city.replace('  ', ' ')
         city = city.replace('  ', ' ')
         city = city.replace('  ', ' ')
+        city = city.replace('Нур-Султан', 'Астана')
         report = f'''Подтверждённых случаев: {confirmed}
 Летальных случаев: {deaths}
 Выздоровевших: {recovered}
