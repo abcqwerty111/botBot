@@ -4,7 +4,7 @@ from telebot import *
 import requests
 from bs4 import BeautifulSoup
 
-bot = telebot.TeleBot('1046005810:AAG1-tPwvEb5nwEpigoDLuk4vDhuYDULI2M')
+bot = telebot.TeleBot('844670991:AAFrcRXo8nVBEw9pSyNOceb4C9QJuNp9skc')
 
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
@@ -32,10 +32,12 @@ def process_step(message):
         recovered = soup.find('div', attrs = {'class': 'recov_bl'}).text
         recovered = recovered.replace('Выздоровевших:', '')
         recovered = recovered.replace(' ', '')
+        for fff in soup.find_all('div', attrs = {'class': 'recov_bl'}):
+        	plus = fff.find('div', attrs = {'class': 'city_cov'}).text
         for div in soup.find_all('div', attrs = {'class': 'deaths_bl'}):
         	minus = div.find('div', attrs = {'class': 'city_cov'}).text
-        minus = minus.replace(' ', '')
-        minus = minus.replace('\n', '')
+        menus = minus.replace(' ', '')
+        minus = menus.replace('\n', '')
         deaths = deaths.replace(minus, '')
         active = str(int(confirmed) - int(deaths) - int(recovered))
         city = soup.find('div', attrs = {'class': 'city_cov'}).text
@@ -45,11 +47,12 @@ def process_step(message):
         city = city.replace('  ', ' ')
         city = city.replace('Нур-Султан', 'Астана')
         report = f'''Подтверждённых случаев: {confirmed}
+    {city}
 Летальных случаев: {deaths}
+	{menus}
 Выздоровевших: {recovered}
-Активных: {active}
-
-Информация по областям:{city}'''
+	{plus}
+Активных: {active}'''
         bot.send_message(chat_id, report, reply_markup=markup)
     else:
         bot.send_message(chat_id, 'Извините, Вы сделали что-то не так', reply_markup=markup)
