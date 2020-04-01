@@ -32,7 +32,7 @@ def process_step(message):
         recovered = soup.find('div', attrs = {'class': 'recov_bl'}).text
         recovered = recovered.replace('Выздоровевших:', '')
         recovered = recovered.replace(' ', '')
-        for fff in soup.find_all('div', attrs = {'class': 'recov_bl'}):
+        for fff in soup.find_all('div', attrs = {'class': 'title_cov'}):
         	plus = fff.find('div', attrs = {'class': 'city_cov'}).text
         for div in soup.find_all('div', attrs = {'class': 'deaths_bl'}):
         	minus = div.find('div', attrs = {'class': 'city_cov'}).text
@@ -41,11 +41,9 @@ def process_step(message):
         deaths = deaths.replace(minus, '')
         active = str(int(confirmed) - int(deaths) - int(recovered))
         city = soup.find('div', attrs = {'class': 'city_cov'}).text
-        city = city.replace('  ', ' ')
-        city = city.replace('  ', ' ')
-        city = city.replace('  ', ' ')
-        city = city.replace('  ', ' ')
+        city = city.replace(' ', '')
         city = city.replace('Нур-Султан', 'Астана')
+        city = city.replace('-', ' - ')
         report = f'''Подтверждённых случаев: {confirmed}
     {city}
 Летальных случаев: {deaths}
