@@ -71,14 +71,14 @@ def process_step(message):
 	wrecovered = int(my_line[2].text.strip().replace(',', ''))
 	active_cases = wconfirmed - wdeaths - wrecovered
 	wreport = f'''ПОДТВЕРЖДЁННЫХ СЛУЧАЕВ (В МИРЕ): {wconfirmed}
-
+	
 ВЫЗДОРОВЕВШИХ (В МИРЕ): {wrecovered}
 ЛЕТАЛЬНЫХ СЛУЧАЕВ (В МИРЕ): {wrecovered}
 
 АКТИВНЫХ (В МИРЕ): {active_cases}'''
-        bot.send_message(chat_id, wreport, reply_markup=markup)
+	bot.send_message(chat_id, wreport, reply_markup=markup)
     else:
-        bot.send_message(chat_id, 'Извините, Вы сделали что-то не так', reply_markup=markup)
+	bot.send_message(chat_id, 'Извините, Вы сделали что-то не так', reply_markup=markup)
 
 
 @bot.message_handler(content_types=['text'])
