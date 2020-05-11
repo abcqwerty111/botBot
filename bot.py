@@ -9,7 +9,7 @@ bot = telebot.TeleBot('1046005810:AAG1-tPwvEb5nwEpigoDLuk4vDhuYDULI2M')
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add('Показать')
+    markup.add('Казахстан')
     markup.add('Мир')
     msg = bot.reply_to(message, 'Привет, я умею только показывать количество заражённых людей в Казахстане и мире', reply_markup=markup)
     bot.register_next_step_handler(msg, process_step)
@@ -17,9 +17,9 @@ def send_welcome(message):
 def process_step(message):
     chat_id = message.chat.id
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add('Показать')
+    markup.add('Казахстан')
     markup.add('Мир')
-    if message.text=='Показать':
+    if message.text=='Казахстан':
         page_link = 'https://www.coronavirus2020.kz'
         headers = {'accept': '*/*', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36'}
         response = requests.get(page_link, headers = headers)
@@ -66,9 +66,9 @@ def process_step(message):
         response = requests.get(page_link)
         soup = BeautifulSoup(response.text, 'html.parser')
         my_line = soup.find_all('div', class_ = 'maincounter-number')
-        wconfirmed = int(my_line[0].text.strip().replace(',', ''))
-        wdeaths = int(my_line[1].text.strip().replace(',', ''))
-        wrecovered = int(my_line[2].text.strip().replace(',', ''))
+        wconfirmed = int(my_line[0].text.strip().replace(',', ' '))
+        wdeaths = int(my_line[1].text.strip().replace(',', ' '))
+        wrecovered = int(my_line[2].text.strip().replace(',', ' '))
         active_cases = wconfirmed - wdeaths - wrecovered
         wreport = f'''ПОДТВЕРЖДЁННЫХ СЛУЧАЕВ (В МИРЕ): {wconfirmed}
 
