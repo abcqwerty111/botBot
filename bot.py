@@ -10,13 +10,15 @@ bot = telebot.TeleBot('1046005810:AAG1-tPwvEb5nwEpigoDLuk4vDhuYDULI2M')
 def send_welcome(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     markup.add('Показать')
-    msg = bot.reply_to(message, 'Привет, я умею только показывать количество заражённых людей в Казахстане', reply_markup=markup)
+    markup.add('Мир')
+    msg = bot.reply_to(message, 'Привет, я умею только показывать количество заражённых людей в Казахстане и мире', reply_markup=markup)
     bot.register_next_step_handler(msg, process_step)
 
 def process_step(message):
     chat_id = message.chat.id
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     markup.add('Показать')
+    markup.add('Мир')
     if message.text=='Показать':
         page_link = 'https://www.coronavirus2020.kz'
         headers = {'accept': '*/*', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36'}
@@ -59,6 +61,22 @@ def process_step(message):
 	{deaths_city}
 АКТИВНЫХ: {active}'''
         bot.send_message(chat_id, report, reply_markup=markup)
+    elif message.text=='Мир':
+	page_link = 'https://www.worldometers.info/coronavirus'
+	response = requests.get(page_link)
+	soup = BeautifulSoup(response.text, 'html.parser')
+	my_line = soup.find_all('div', class_ = 'maincounter-number')
+	wconfirmed = int(my_line[0].text.strip().replace(',', ''))
+	wdeaths = int(my_line[1].text.strip().replace(',', ''))
+	wrecovered = int(my_line[2].text.strip().replace(',', ''))
+	active_cases = wconfirmed - wdeaths - wrecovered
+	wreport = f'''ПОДТВЕРЖДЁННЫХ СЛУЧАЕВ (В МИРЕ): {wconfirmed}
+
+ВЫЗДОРОВЕВШИХ (В МИРЕ): {wrecovered}
+ЛЕТАЛЬНЫХ СЛУЧАЕВ (В МИРЕ): {wrecovered}
+
+АКТИВНЫХ (В МИРЕ): {active_cases}'''
+        bot.send_message(chat_id, wreport, reply_markup=markup)
     else:
         bot.send_message(chat_id, 'Извините, Вы сделали что-то не так', reply_markup=markup)
 
