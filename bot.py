@@ -62,22 +62,22 @@ def process_step(message):
 АКТИВНЫХ: {active}'''
         bot.send_message(chat_id, report, reply_markup=markup)
     elif message.text=='Мир':
-    	page_link = 'https://www.worldometers.info/coronavirus'
-    	response = requests.get(page_link)
-    	soup = BeautifulSoup(response.text, 'html.parser')
-    	my_line = soup.find_all('div', class_ = 'maincounter-number')
-    	wconfirmed = int(my_line[0].text.strip().replace(',', ''))
-    	wdeaths = int(my_line[1].text.strip().replace(',', ''))
-    	wrecovered = int(my_line[2].text.strip().replace(',', ''))
-    	active_cases = wconfirmed - wdeaths - wrecovered
-    	wreport = f'''ПОДТВЕРЖДЁННЫХ СЛУЧАЕВ (В МИРЕ): {wconfirmed}
-	
+        page_link = 'https://www.worldometers.info/coronavirus'
+        response = requests.get(page_link)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        my_line = soup.find_all('div', class_ = 'maincounter-number')
+        wconfirmed = int(my_line[0].text.strip().replace(',', ''))
+        wdeaths = int(my_line[1].text.strip().replace(',', ''))
+        wrecovered = int(my_line[2].text.strip().replace(',', ''))
+        active_cases = wconfirmed - wdeaths - wrecovered
+        wreport = f'''ПОДТВЕРЖДЁННЫХ СЛУЧАЕВ (В МИРЕ): {wconfirmed}
+
 ВЫЗДОРОВЕВШИХ (В МИРЕ): {wrecovered}
 ЛЕТАЛЬНЫХ СЛУЧАЕВ (В МИРЕ): {wrecovered}
 АКТИВНЫХ (В МИРЕ): {active_cases}'''
-	bot.send_message(chat_id, wreport, reply_markup=markup)
+        bot.send_message(chat_id, wreport, reply_markup=markup)
     else:
-    	bot.send_message(chat_id, 'Извините, Вы сделали что-то не так', reply_markup=markup)
+        bot.send_message(chat_id, 'Извините, Вы сделали что-то не так', reply_markup=markup)
 
 
 @bot.message_handler(content_types=['text'])
