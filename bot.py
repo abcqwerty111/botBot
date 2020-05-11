@@ -66,9 +66,9 @@ def process_step(message):
         response = requests.get(page_link)
         soup = BeautifulSoup(response.text, 'html.parser')
         my_line = soup.find_all('div', class_ = 'maincounter-number')
-        wconfirmed = int(my_line[0].text.strip().replace(',', ' '))
-        wdeaths = int(my_line[1].text.strip().replace(',', ' '))
-        wrecovered = int(my_line[2].text.strip().replace(',', ' '))
+        wconfirmed = int(my_line[0].text.strip().replace(',', ''))
+        wdeaths = int(my_line[1].text.strip().replace(',', ''))
+        wrecovered = int(my_line[2].text.strip().replace(',', ''))
         active_cases = wconfirmed - wdeaths - wrecovered
         wreport = f'''ПОДТВЕРЖДЁННЫХ СЛУЧАЕВ (В МИРЕ): {wconfirmed}
 
