@@ -1,4 +1,4 @@
 pyTelegramBotAPI==3.6.7
 bs4==0.0.1
-requests==2.23.0
+requests==2.31.0
 six==1.14.0
